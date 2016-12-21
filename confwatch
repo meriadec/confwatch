@@ -1,0 +1,75 @@
+#!/bin/bash
+
+
+##                                 confwatch
+##                                 =========
+##
+##                     Watch config files and do things.
+
+
+version='0.1.0'
+progName=$1
+
+cStrong='\e[1;34m'
+cNope='\e[1;0m'
+
+function main {
+
+  # There is no default tool
+  [ -z "$progName" ] && usage && exit 1
+
+  # Why not
+  greetings
+
+  # Handle tools
+  [ "$progName" == "urxvt" ] && watchUrxvt
+
+  # Fallback
+  echo 'No such tool :('
+
+}
+
+
+##                              -- UTILITIES --
+
+
+function greetings {
+  printf "\n"
+  printf "$cStrong%s - %s$cNope\n" ' confwatch' $version
+  printf "$cRed%s$cNope\n"      ' -----------------'
+  printf "\n"
+}
+
+function usage {
+  echo 'confwatch <tool>'
+  echo ''
+  echo '  Tools:'
+  echo '  urxvt     Open a new urxvt everytime ~/.Xresource is modified'
+  echo ''
+}
+
+function end {
+  echo 'Bye.'
+  exit 0
+}
+
+
+##                                -- TOOLS --
+
+
+# urxvt
+#
+# Open a new terminal everytime ~/.Xresources is modified
+
+function watchUrxvt {
+  echo '>> Watching ~/.Xresources'
+
+  while inotifywait --quiet --quiet -e close_write $HOME/.Xresources; do
+    echo '>> change detected'
+    xrdb merge $HOME/.Xresources
+    urxvt
+  done
+}
+
+# Scoping...
+main

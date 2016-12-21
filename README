@@ -1,0 +1,5 @@
+confwatch <tool>
+
+  Tools:
+  urxvt     Open a new urxvt everytime ~/.Xresource is modified
+
