@@ -44,7 +44,7 @@ function usage {
   echo 'confwatch <tool>'
   echo ''
   echo '  Tools:'
-  echo '  urxvt     Open a new urxvt everytime ~/.Xresource is modified'
+  echo '  urxvt     Spawn urxvt everytime ~/.Xresources is modified'
   echo ''
 }
 
@@ -59,7 +59,7 @@ function end {
 
 # urxvt
 #
-# Open a new terminal everytime ~/.Xresources is modified
+# Spawn urxvt everytime ~/.Xresources is modified
 
 function watchUrxvt {
   echo '>> Watching ~/.Xresources'
