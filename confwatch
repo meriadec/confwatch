@@ -48,11 +48,6 @@ function usage {
   echo ''
 }
 
-function end {
-  echo 'Bye.'
-  exit 0
-}
-
 
 ##                                -- TOOLS --
 
