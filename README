@@ -2,4 +2,5 @@ confwatch <tool>
 
   Tools:
   urxvt     Spawn urxvt everytime ~/.Xresources is modified
+  compton   Restart compton everytime ~/.config/compton.conf is modified
 

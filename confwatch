@@ -23,6 +23,7 @@ function main {
 
   # Handle tools
   [ "$progName" == "urxvt" ] && watchUrxvt
+  [ "$progName" == "compton" ] && watchCompton
 
   # Fallback
   echo 'No such tool :('
@@ -45,6 +46,7 @@ function usage {
   echo ''
   echo '  Tools:'
   echo '  urxvt     Spawn urxvt everytime ~/.Xresources is modified'
+  echo '  compton   Restart compton everytime ~/.config/compton.conf is modified'
   echo ''
 }
 
@@ -63,6 +65,21 @@ function watchUrxvt {
     echo '>> change detected'
     xrdb merge $HOME/.Xresources
     urxvt
+  done
+}
+
+
+# compton
+#
+# Restart compton everytime ~/.config/compton.conf is modified
+
+function watchCompton {
+  echo '>> Watching ~/.config/compton.conf'
+
+  while inotifywait --quiet --quiet -e close_write $HOME/.config/compton.conf; do
+    echo '>> change detected'
+    killall compton
+    compton -b
   done
 }
 
